@@ -1,0 +1,230 @@
+[
+    {
+        "id": "b553ed28.9235c",
+        "type": "tab",
+        "label": "Flow 1",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "fdbdccc3.9facb",
+        "type": "discovery",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "topic": "",
+        "service": "_webthing._tcp",
+        "x": 200,
+        "y": 180,
+        "wires": [
+            [
+                "121ae85d.7c8728",
+                "2695ad24.a5c7ea"
+            ]
+        ]
+    },
+    {
+        "id": "de539ab8.8cd8b",
+        "type": "influxdb out",
+        "z": "b553ed28.9235c",
+        "influxdb": "488fb9d7.14ccf8",
+        "name": "",
+        "measurement": "dht11",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 1170,
+        "y": 460,
+        "wires": []
+    },
+    {
+        "id": "121ae85d.7c8728",
+        "type": "debug",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 1130,
+        "y": 180,
+        "wires": [],
+        "icon": "node-red/feed.png"
+    },
+    {
+        "id": "2695ad24.a5c7ea",
+        "type": "function",
+        "z": "b553ed28.9235c",
+        "name": "extract host",
+        "func": "var endpoint = msg.payload.name+\".local:\"+msg.payload.port;\n\nflow.set(\"registry.dht11\", endpoint);\n\nreturn {url: endpoint,\n    payload: {url: msg.payload.name+\".local:\"+msg.payload.port }\n};",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 410,
+        "y": 240,
+        "wires": [
+            [
+                "320589e1.d8101e"
+            ]
+        ]
+    },
+    {
+        "id": "bacac7cf.8671c",
+        "type": "http request",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "",
+        "tls": "",
+        "x": 850,
+        "y": 240,
+        "wires": [
+            [
+                "ff137160.46e9e8"
+            ]
+        ],
+        "inputLabels": [
+            "host"
+        ]
+    },
+    {
+        "id": "320589e1.d8101e",
+        "type": "trigger",
+        "z": "b553ed28.9235c",
+        "op1": "",
+        "op2": "0",
+        "op1type": "pay",
+        "op2type": "str",
+        "duration": "-60",
+        "extend": false,
+        "units": "s",
+        "reset": "",
+        "bytopic": "all",
+        "name": "",
+        "x": 630,
+        "y": 240,
+        "wires": [
+            [
+                "bacac7cf.8671c"
+            ]
+        ]
+    },
+    {
+        "id": "4bc97ddc.385a54",
+        "type": "function",
+        "z": "b553ed28.9235c",
+        "name": "extract hrefs",
+        "func": "var resp = msg.payload[0].properties;\n\nvar end = new Array();\n\nfor (var key in resp) {\n    // skip loop if the property is from prototype\n    if (!resp.hasOwnProperty(key)) continue;\n    var endpoint = flow.get(\"registry.dht11\")+resp[key].href;\n    end.push({url:endpoint, payload: endpoint});\n}\n\nreturn [end];",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 870,
+        "y": 320,
+        "wires": [
+            [
+                "f0b1fa89.6e1fb8"
+            ]
+        ]
+    },
+    {
+        "id": "ff137160.46e9e8",
+        "type": "json",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 650,
+        "y": 320,
+        "wires": [
+            [
+                "4bc97ddc.385a54"
+            ]
+        ]
+    },
+    {
+        "id": "f0b1fa89.6e1fb8",
+        "type": "http request",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "",
+        "x": 670,
+        "y": 400,
+        "wires": [
+            [
+                "ed94d0d4.2aecd8"
+            ]
+        ]
+    },
+    {
+        "id": "bfb4ff51.1c315",
+        "type": "join",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "mode": "custom",
+        "build": "merged",
+        "property": "payload",
+        "propertyType": "msg",
+        "key": "topic",
+        "joiner": "\\n",
+        "joinerType": "str",
+        "accumulate": false,
+        "timeout": "5",
+        "count": "",
+        "reduceRight": false,
+        "reduceExp": "",
+        "reduceInit": "",
+        "reduceInitType": "",
+        "reduceFixup": "",
+        "x": 970,
+        "y": 400,
+        "wires": [
+            [
+                "f9118b95.0e849",
+                "de539ab8.8cd8b"
+            ]
+        ]
+    },
+    {
+        "id": "f9118b95.0e849",
+        "type": "debug",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1150,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "ed94d0d4.2aecd8",
+        "type": "json",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 830,
+        "y": 400,
+        "wires": [
+            [
+                "bfb4ff51.1c315"
+            ]
+        ]
+    },
+    {
+        "id": "488fb9d7.14ccf8",
+        "type": "influxdb",
+        "z": "",
+        "hostname": "localhost",
+        "port": "8086",
+        "protocol": "http",
+        "database": "db0",
+        "name": "",
+        "usetls": false,
+        "tls": ""
+    }
+]

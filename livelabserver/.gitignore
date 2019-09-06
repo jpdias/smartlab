@@ -1,0 +1,6 @@
+server/grafana/data
+server/influxdb/data
+server/grafana/data
+server/mosquitto/data
+server/registryserver/data
+.vscode

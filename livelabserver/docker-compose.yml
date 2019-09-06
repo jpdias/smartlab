@@ -1,0 +1,82 @@
+version: '3'
+
+services:
+  portainer:
+    image: portainer/portainer
+    ports:
+      - 9000:9000
+    command: -H unix:///var/run/docker.sock
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ./portainer/data:/data
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  influxdb:
+    build: influxdb
+    environment: 
+      - INFLUXDB_DB=db0
+      - INFLUXDB_ADMIN_USER=admin
+      - INFLUXDB_ADMIN_PASSWORD=supersecretpassword
+      - INFLUXDB_USER=user
+      - INFLUXDB_USER_PASSWORD=secretpassword
+      - PRE_CREATE_DB:livelab-sensors
+    ports: 
+      - 8086:8086
+    volumes: 
+      - ./influxdb/data:/var/lib/influxdb
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  mosquitto:
+    build: mosquitto
+    ports: 
+      - 1883:1883
+    volumes: 
+      - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
+      - ./mosquitto/data:/mosquitto/data
+    depends_on: 
+      - influxdb
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+  
+  grafana:
+    build: grafana
+    ports: 
+      - 3000:3000
+    environment: 
+      - GF_SECURITY_ADMIN_PASSWORD=secret
+    volumes:
+      - ./grafana/data:/var/lib/grafana
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
+
+  nodered:
+    build: nodered
+    ports:
+      - 1880:1880
+    depends_on: 
+      - mosquitto
+      - influxdb
+    deploy:
+      restart_policy:
+        condition: on-failure
+        delay: 5s
+        max_attempts: 3
+        window: 120s
