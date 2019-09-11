@@ -58,7 +58,7 @@ services:
     depends_on: 
       - mosquitto
       - influxdb
-    user: "1000"
+    user: root:root
     environment:
       - FLOWS=flows.json
     volumes:
