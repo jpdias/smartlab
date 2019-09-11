@@ -8,8 +8,6 @@ RUN npm i node-red-contrib-influxdb
 RUN npm i node-red-node-ping
 RUN npm i node-red-contrib-os
 RUN npm i node-red-contrib-assert
-RUN npm i node-red-contrib-dashboard-bar-chart-data
-
 
 COPY start.sh /
 
@@ -19,4 +17,4 @@ COPY flows.json /data
 
 ENTRYPOINT ["/start.sh"]
 
-EXPOSE 1880 5353 5353/udp
+EXPOSE 1880
