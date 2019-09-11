@@ -1,0 +1,953 @@
+[
+    {
+        "id": "b553ed28.9235c",
+        "type": "tab",
+        "label": "Sensing Store",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "96b28508.f098e8",
+        "type": "tab",
+        "label": "Experiments",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "a7624650.d0312",
+        "type": "tab",
+        "label": "Redundancy",
+        "disabled": false,
+        "info": ""
+    },
+    {
+        "id": "488fb9d7.14ccf8",
+        "type": "influxdb",
+        "z": "",
+        "hostname": "influxdb",
+        "port": "8086",
+        "protocol": "http",
+        "database": "db0",
+        "name": "InfluxDB",
+        "usetls": false,
+        "tls": ""
+    },
+    {
+        "id": "bf93ba13.493a68",
+        "type": "mqtt-broker",
+        "z": "",
+        "name": "mosquitto",
+        "broker": "mosquitto",
+        "port": "1883",
+        "clientid": "",
+        "usetls": false,
+        "compatmode": true,
+        "keepalive": "60",
+        "cleansession": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthPayload": "",
+        "closeTopic": "",
+        "closeQos": "0",
+        "closePayload": "",
+        "willTopic": "",
+        "willQos": "0",
+        "willPayload": ""
+    },
+    {
+        "id": "580cc027.901a68",
+        "type": "mqtt in",
+        "z": "b553ed28.9235c",
+        "name": "gas-mq135-readings",
+        "topic": "gas-mq135-readings",
+        "qos": "2",
+        "broker": "bf93ba13.493a68",
+        "x": 160,
+        "y": 140,
+        "wires": [
+            [
+                "dce7c0b7.29a2e8"
+            ]
+        ]
+    },
+    {
+        "id": "987d61de.26b0f8",
+        "type": "mqtt in",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "topic": "temp-hum-readings",
+        "qos": "2",
+        "broker": "bf93ba13.493a68",
+        "x": 150,
+        "y": 200,
+        "wires": [
+            [
+                "fe6f37f3.a8a8f8"
+            ]
+        ]
+    },
+    {
+        "id": "5250a367.97c3c4",
+        "type": "mqtt in",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "topic": "lux-readings",
+        "qos": "2",
+        "broker": "bf93ba13.493a68",
+        "x": 130,
+        "y": 260,
+        "wires": [
+            [
+                "46af6d66.e89d8c"
+            ]
+        ]
+    },
+    {
+        "id": "b2b5fa45.0c298",
+        "type": "mqtt in",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "topic": "noise-readings",
+        "qos": "2",
+        "broker": "bf93ba13.493a68",
+        "x": 140,
+        "y": 320,
+        "wires": [
+            [
+                "427ec58b.7365d4"
+            ]
+        ]
+    },
+    {
+        "id": "dc6ce543.c58738",
+        "type": "influxdb out",
+        "z": "b553ed28.9235c",
+        "influxdb": "488fb9d7.14ccf8",
+        "name": "",
+        "measurement": "gas-mq135",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 860,
+        "y": 140,
+        "wires": []
+    },
+    {
+        "id": "8bffc672.566f98",
+        "type": "influxdb out",
+        "z": "b553ed28.9235c",
+        "influxdb": "488fb9d7.14ccf8",
+        "name": "",
+        "measurement": "temp-hum",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 850,
+        "y": 200,
+        "wires": []
+    },
+    {
+        "id": "ba02a04.edbd4e",
+        "type": "influxdb out",
+        "z": "b553ed28.9235c",
+        "influxdb": "488fb9d7.14ccf8",
+        "name": "",
+        "measurement": "lux",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 830,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "e1b07f7.ba0ce8",
+        "type": "influxdb out",
+        "z": "b553ed28.9235c",
+        "influxdb": "488fb9d7.14ccf8",
+        "name": "",
+        "measurement": "noise",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 840,
+        "y": 320,
+        "wires": []
+    },
+    {
+        "id": "dce7c0b7.29a2e8",
+        "type": "json",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 350,
+        "y": 140,
+        "wires": [
+            [
+                "dc6ce543.c58738",
+                "c16d9011.d1c6b8"
+            ]
+        ]
+    },
+    {
+        "id": "fe6f37f3.a8a8f8",
+        "type": "json",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 350,
+        "y": 200,
+        "wires": [
+            [
+                "8bffc672.566f98",
+                "c16d9011.d1c6b8"
+            ]
+        ]
+    },
+    {
+        "id": "46af6d66.e89d8c",
+        "type": "json",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 350,
+        "y": 260,
+        "wires": [
+            [
+                "ba02a04.edbd4e",
+                "c16d9011.d1c6b8"
+            ]
+        ]
+    },
+    {
+        "id": "427ec58b.7365d4",
+        "type": "json",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 350,
+        "y": 320,
+        "wires": [
+            [
+                "e1b07f7.ba0ce8",
+                "c16d9011.d1c6b8"
+            ]
+        ]
+    },
+    {
+        "id": "43cf31de.12f65",
+        "type": "mqtt in",
+        "z": "b553ed28.9235c",
+        "name": "gas-mq9-readings",
+        "topic": "gas-mq9-readings",
+        "qos": "2",
+        "broker": "bf93ba13.493a68",
+        "x": 150,
+        "y": 80,
+        "wires": [
+            [
+                "88a1f4ae.e47758"
+            ]
+        ]
+    },
+    {
+        "id": "bb92e6d5.52e8e8",
+        "type": "influxdb out",
+        "z": "b553ed28.9235c",
+        "influxdb": "488fb9d7.14ccf8",
+        "name": "",
+        "measurement": "gas-mq9",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 850,
+        "y": 80,
+        "wires": []
+    },
+    {
+        "id": "88a1f4ae.e47758",
+        "type": "json",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 350,
+        "y": 80,
+        "wires": [
+            [
+                "bb92e6d5.52e8e8",
+                "c16d9011.d1c6b8"
+            ]
+        ]
+    },
+    {
+        "id": "1578a67.27f0b5a",
+        "type": "http request",
+        "z": "b553ed28.9235c",
+        "name": "DarkSky",
+        "method": "GET",
+        "ret": "obj",
+        "url": "https://api.darksky.net/forecast/ad0a75ebbf71b683b4da69f6d4d7c3e9/41.1611,-8.614?units=si",
+        "tls": "",
+        "x": 360,
+        "y": 400,
+        "wires": [
+            [
+                "1c67f0ff.c2d687"
+            ]
+        ]
+    },
+    {
+        "id": "5245fd59.037a8c",
+        "type": "inject",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "3600",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 150,
+        "y": 400,
+        "wires": [
+            [
+                "1578a67.27f0b5a"
+            ]
+        ]
+    },
+    {
+        "id": "1c67f0ff.c2d687",
+        "type": "change",
+        "z": "b553ed28.9235c",
+        "name": "Currently Conditions",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "payload.currently",
+                "tot": "msg"
+            },
+            {
+                "t": "delete",
+                "p": "payload.time",
+                "pt": "msg"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 580,
+        "y": 400,
+        "wires": [
+            [
+                "176a68.7314fd99",
+                "48552b4a.7e1444"
+            ]
+        ]
+    },
+    {
+        "id": "176a68.7314fd99",
+        "type": "influxdb out",
+        "z": "b553ed28.9235c",
+        "influxdb": "488fb9d7.14ccf8",
+        "name": "",
+        "measurement": "weather-forecast",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 880,
+        "y": 400,
+        "wires": []
+    },
+    {
+        "id": "48552b4a.7e1444",
+        "type": "debug",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 820,
+        "y": 500,
+        "wires": []
+    },
+    {
+        "id": "678db8f.8e1c4c8",
+        "type": "mqtt in",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "topic": "motion-readings",
+        "qos": "2",
+        "broker": "bf93ba13.493a68",
+        "x": 140,
+        "y": 640,
+        "wires": [
+            [
+                "434cfc98.66ae14"
+            ]
+        ]
+    },
+    {
+        "id": "1058e752.d6aa91",
+        "type": "mqtt in",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "topic": "door-readings",
+        "qos": "2",
+        "broker": "bf93ba13.493a68",
+        "x": 130,
+        "y": 700,
+        "wires": [
+            [
+                "498ff5dc.98901c"
+            ]
+        ]
+    },
+    {
+        "id": "498ff5dc.98901c",
+        "type": "json",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 410,
+        "y": 700,
+        "wires": [
+            [
+                "79ec6f28.e7794",
+                "a4e72f4a.012e7"
+            ]
+        ]
+    },
+    {
+        "id": "434cfc98.66ae14",
+        "type": "json",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 410,
+        "y": 640,
+        "wires": [
+            [
+                "79ec6f28.e7794",
+                "6bf76136.78f4d"
+            ]
+        ]
+    },
+    {
+        "id": "79ec6f28.e7794",
+        "type": "debug",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 810,
+        "y": 760,
+        "wires": []
+    },
+    {
+        "id": "c16d9011.d1c6b8",
+        "type": "debug",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 830,
+        "y": 20,
+        "wires": []
+    },
+    {
+        "id": "6bf76136.78f4d",
+        "type": "influxdb out",
+        "z": "b553ed28.9235c",
+        "influxdb": "488fb9d7.14ccf8",
+        "name": "",
+        "measurement": "motion",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 820,
+        "y": 640,
+        "wires": []
+    },
+    {
+        "id": "a4e72f4a.012e7",
+        "type": "influxdb out",
+        "z": "b553ed28.9235c",
+        "influxdb": "488fb9d7.14ccf8",
+        "name": "",
+        "measurement": "door",
+        "precision": "",
+        "retentionPolicy": "",
+        "x": 820,
+        "y": 700,
+        "wires": []
+    },
+    {
+        "id": "a9e10b2c.9eebe8",
+        "type": "inject",
+        "z": "96b28508.f098e8",
+        "name": "",
+        "topic": "",
+        "payload": "banaaaaaaaaana",
+        "payloadType": "str",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 290,
+        "y": 360,
+        "wires": [
+            [
+                "8da7597c.191238",
+                "87d0952d.3d3ab8",
+                "f6e38024.f88108"
+            ]
+        ]
+    },
+    {
+        "id": "f6e38024.f88108",
+        "type": "mqtt out",
+        "z": "96b28508.f098e8",
+        "name": "",
+        "topic": "moz/displaytext",
+        "qos": "",
+        "retain": "false",
+        "broker": "bf93ba13.493a68",
+        "x": 1220,
+        "y": 160,
+        "wires": []
+    },
+    {
+        "id": "8da7597c.191238",
+        "type": "assert",
+        "z": "96b28508.f098e8",
+        "name": "",
+        "rules": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "type": "eq",
+                "value": "banaaaaaaaaana",
+                "valueType": "str",
+                "failMsg": ""
+            }
+        ],
+        "x": 690,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "87d0952d.3d3ab8",
+        "type": "assert",
+        "z": "96b28508.f098e8",
+        "name": "",
+        "rules": [
+            {
+                "property": "payload",
+                "propertyType": "msg",
+                "type": "eq",
+                "value": "banaaaaaaaana",
+                "valueType": "str",
+                "failMsg": "welp"
+            }
+        ],
+        "x": 690,
+        "y": 460,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "fa41e1b9.1f10b",
+        "type": "ping",
+        "z": "96b28508.f098e8",
+        "name": "chilipie-kiosk.local/192.168.0.182",
+        "host": "http://chilipie-kiosk.local",
+        "timer": "60",
+        "x": 320,
+        "y": 160,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c838eab4.bedfe",
+        "type": "debug",
+        "z": "96b28508.f098e8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 1030,
+        "y": 300,
+        "wires": []
+    },
+    {
+        "id": "7834fc72.542d24",
+        "type": "ping",
+        "z": "96b28508.f098e8",
+        "name": "indoorsensor.local",
+        "host": "http://indoorsensor.local",
+        "timer": "60",
+        "x": 270,
+        "y": 200,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "46f8572e.aedf98",
+        "type": "debug",
+        "z": "96b28508.f098e8",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": true,
+        "complete": "payload",
+        "x": 1130,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "8ef6bbc3.53213",
+        "type": "function",
+        "z": "96b28508.f098e8",
+        "name": "",
+        "func": "msg.payload=flow.get(\"enable\");\nreturn msg.payload;",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 810,
+        "y": 60,
+        "wires": [
+            [
+                "46f8572e.aedf98"
+            ]
+        ]
+    },
+    {
+        "id": "1b3d16c5.d62e39",
+        "type": "inject",
+        "z": "96b28508.f098e8",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 660,
+        "y": 60,
+        "wires": [
+            [
+                "8ef6bbc3.53213"
+            ]
+        ]
+    },
+    {
+        "id": "1f92e7a8.a7305",
+        "type": "switch",
+        "z": "96b28508.f098e8",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 880,
+        "y": 140,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c8a90618.bb2c48",
+        "type": "inject",
+        "z": "a7624650.d0312",
+        "name": "master-false",
+        "topic": "",
+        "payload": "{\"isMaster\":false}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 290,
+        "y": 100,
+        "wires": [
+            [
+                "a53988ef.22b55"
+            ]
+        ]
+    },
+    {
+        "id": "1b4f25cc.cd5592",
+        "type": "inject",
+        "z": "a7624650.d0312",
+        "name": "master-true",
+        "topic": "",
+        "payload": "{\"isMaster\":true}",
+        "payloadType": "json",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 290,
+        "y": 140,
+        "wires": [
+            [
+                "a53988ef.22b55"
+            ]
+        ]
+    },
+    {
+        "id": "a53988ef.22b55",
+        "type": "change",
+        "z": "a7624650.d0312",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "isMaster",
+                "pt": "global",
+                "to": "msg.payload.isMaster",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 590,
+        "y": 120,
+        "wires": [
+            [
+                "c3878e91.5c66f"
+            ]
+        ]
+    },
+    {
+        "id": "bbe10dfa.06d7c",
+        "type": "debug",
+        "z": "a7624650.d0312",
+        "name": "",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 710,
+        "y": 340,
+        "wires": []
+    },
+    {
+        "id": "d1528fd4.6214a",
+        "type": "inject",
+        "z": "a7624650.d0312",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "5",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 290,
+        "y": 300,
+        "wires": [
+            [
+                "bbe10dfa.06d7c"
+            ]
+        ]
+    },
+    {
+        "id": "8b58d9ec.9035b8",
+        "type": "inject",
+        "z": "a7624650.d0312",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "3",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 290,
+        "y": 360,
+        "wires": [
+            [
+                "bbe10dfa.06d7c"
+            ]
+        ]
+    },
+    {
+        "id": "c3878e91.5c66f",
+        "type": "debug",
+        "z": "a7624650.d0312",
+        "name": "Status",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "x": 860,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "3e0bb92a.2514fe",
+        "type": "http in",
+        "z": "a7624650.d0312",
+        "name": "",
+        "url": "/status",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 270,
+        "y": 240,
+        "wires": [
+            [
+                "780283f.d056ffc"
+            ]
+        ]
+    },
+    {
+        "id": "780283f.d056ffc",
+        "type": "http response",
+        "z": "a7624650.d0312",
+        "name": "",
+        "statusCode": "",
+        "headers": {},
+        "x": 530,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "8b47c7f7.beba38",
+        "type": "http request",
+        "z": "a7624650.d0312",
+        "name": "",
+        "method": "GET",
+        "ret": "txt",
+        "url": "http://localhost:1880/flow/96b28508.f098e8",
+        "tls": "",
+        "x": 470,
+        "y": 480,
+        "wires": [
+            [
+                "40bed63d.4c18b8"
+            ]
+        ]
+    },
+    {
+        "id": "2ae64f40.717c9",
+        "type": "debug",
+        "z": "a7624650.d0312",
+        "name": "",
+        "active": true,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "false",
+        "x": 850,
+        "y": 480,
+        "wires": []
+    },
+    {
+        "id": "24de160f.1a1442",
+        "type": "inject",
+        "z": "a7624650.d0312",
+        "name": "",
+        "topic": "",
+        "payload": "",
+        "payloadType": "date",
+        "repeat": "",
+        "crontab": "",
+        "once": false,
+        "onceDelay": 0.1,
+        "x": 260,
+        "y": 480,
+        "wires": [
+            [
+                "96ecf92e.23a71"
+            ]
+        ]
+    },
+    {
+        "id": "40bed63d.4c18b8",
+        "type": "json",
+        "z": "a7624650.d0312",
+        "name": "",
+        "property": "payload",
+        "action": "",
+        "pretty": false,
+        "x": 650,
+        "y": 480,
+        "wires": [
+            [
+                "2ae64f40.717c9"
+            ]
+        ]
+    },
+    {
+        "id": "96ecf92e.23a71",
+        "type": "function",
+        "z": "a7624650.d0312",
+        "name": "",
+        "func": "\nreturn RED.flows.getflows();",
+        "outputs": 1,
+        "noerr": 0,
+        "x": 490,
+        "y": 400,
+        "wires": [
+            [
+                "2ae64f40.717c9"
+            ]
+        ]
+    },
+    {
+        "id": "8b4c6f2c.a9644",
+        "type": "mqtt out",
+        "z": "b553ed28.9235c",
+        "name": "",
+        "topic": "moz/displaytext",
+        "qos": "",
+        "retain": "false",
+        "broker": "bf93ba13.493a68",
+        "x": 820,
+        "y": 580,
+        "wires": []
+    }
+]
