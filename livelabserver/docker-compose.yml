@@ -9,12 +9,7 @@ services:
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ./portainer/data:/data
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
+    restart: always
 
   influxdb:
     build: influxdb
@@ -29,12 +24,7 @@ services:
       - 8086:8086
     volumes: 
       - ./influxdb/data:/var/lib/influxdb
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
+    restart: always
 
   mosquitto:
     build: mosquitto
@@ -48,12 +38,7 @@ services:
 
     depends_on: 
       - influxdb
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
+    restart: always
   
   grafana:
     build: grafana
@@ -63,12 +48,7 @@ services:
       - GF_SECURITY_ADMIN_PASSWORD=secret
     volumes:
       - ./grafana/data:/var/lib/grafana
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
+    restart: always
 
   nodered:
     build: nodered
@@ -77,12 +57,7 @@ services:
     depends_on: 
       - mosquitto
       - influxdb
+    user: "1000"
     volumes:
       - ./nodered/data:/data
-    user: 1000:1000
-    deploy:
-      restart_policy:
-        condition: on-failure
-        delay: 5s
-        max_attempts: 3
-        window: 120s
+    restart: always
