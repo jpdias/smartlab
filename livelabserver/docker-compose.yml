@@ -74,6 +74,9 @@ services:
     depends_on: 
       - mosquitto
       - influxdb
+    volumes:
+      - ./nodered/data:/data
+    user: 1000:1000
     deploy:
       restart_policy:
         condition: on-failure
