@@ -46,6 +46,7 @@ services:
       - 3000:3000
     environment: 
       - GF_SECURITY_ADMIN_PASSWORD=secret
+    user: "1000"
     volumes:
       - ./grafana/data:/var/lib/grafana
     restart: always
@@ -58,6 +59,8 @@ services:
       - mosquitto
       - influxdb
     user: "1000"
+    environment:
+      - FLOWS=flows.json
     volumes:
       - ./nodered/data:/data
     restart: always
