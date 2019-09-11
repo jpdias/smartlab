@@ -43,6 +43,9 @@ services:
     volumes: 
       - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
       - ./mosquitto/data:/mosquitto/data
+      - ./mosquitto/data/etc/mosquitto:/etc/mosquitto:ro
+      - ./mosquitto/data/var/log/mosquitto:/var/log/mosquitto:rw
+
     depends_on: 
       - influxdb
     deploy:
