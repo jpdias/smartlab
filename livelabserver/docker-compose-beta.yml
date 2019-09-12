@@ -59,10 +59,8 @@ services:
       - mosquitto
       - influxdb
     user: root:root
-    command: -H /var/run/dbus/system_bus_socket
     environment:
       - FLOWS=flows.json
     volumes:
       - ./nodered/data:/data
-      - ./nodered/data/tmp:~/.node-red
     restart: unless-stopped

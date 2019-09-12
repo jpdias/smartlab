@@ -1,6 +1,9 @@
-server/grafana/data
-server/influxdb/data
-server/grafana/data
-server/mosquitto/data
-server/registryserver/data
+grafana/data
+influxdb/data
+grafana/data
+mosquitto/data
+nodered/data/*
+!*nodered/data/settings.js
+!*nodered/data/flows.json
+
 .vscode
