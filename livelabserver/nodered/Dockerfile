@@ -1,5 +1,9 @@
 FROM nodered/node-red-docker:latest
 
+USER root
+
+RUN apt install libnss-mdns libavahi-compat-libdnssd-dev
+
 USER node-red
 
 RUN npm i node-red-contrib-influxdb
