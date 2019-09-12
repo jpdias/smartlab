@@ -3,7 +3,7 @@ FROM nodered/node-red-docker:latest
 USER root
 
 RUN apt update
-RUN apt install libnss-mdns libavahi-compat-libdnssd-dev
+RUN apt install -y libnss-mdns libavahi-compat-libdnssd-dev
 
 USER node-red
 
