@@ -61,4 +61,5 @@ services:
     user: root:root
     volumes:
       - ./nodered/data:/data
+    network_mode: host
     restart: unless-stopped
