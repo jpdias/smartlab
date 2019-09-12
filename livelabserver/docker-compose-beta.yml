@@ -4,7 +4,7 @@ services:
   portainer:
     image: portainer/portainer
     ports:
-      - 9000:9000
+      - 9100:9000
     command: -H unix:///var/run/docker.sock
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
@@ -21,7 +21,7 @@ services:
       - INFLUXDB_USER_PASSWORD=secretpassword
       - PRE_CREATE_DB:livelab-sensors
     ports: 
-      - 8086:8086
+      - 8186:8086
     volumes: 
       - ./influxdb/data:/var/lib/influxdb
     restart: unless-stopped
@@ -29,7 +29,7 @@ services:
   mosquitto:
     build: mosquitto
     ports: 
-      - 1883:1883
+      - 1183:1883
     volumes: 
       - ./mosquitto/config/mosquitto.conf:/mosquitto/config/mosquitto.conf
       - ./mosquitto/data:/mosquitto/data
@@ -43,7 +43,7 @@ services:
   grafana:
     build: grafana
     ports: 
-      - 3000:3000
+      - 3100:3000
     environment: 
       - GF_SECURITY_ADMIN_PASSWORD=secret
     user: "1000"
@@ -54,7 +54,7 @@ services:
   nodered:
     build: nodered
     ports:
-      - 1880:1880
+      - 1180:1880
     depends_on: 
       - mosquitto
       - influxdb
