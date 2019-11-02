@@ -6,7 +6,7 @@
 #include "arduino_secrets.h"
 
 
-#define ID "ACTUATOR-NODE-1"
+#define ID "actuator-node-1"
 #define BUZZER D1
 #define LED_RED D2
 #define LED_GREEN D3
@@ -191,6 +191,7 @@ void setup() {
     if (!MDNS.begin(ID)) {
         Serial.println("Error setting up MDNS responder!");
     }
+
     Serial.println("mDNS responder started");
     MDNS.addService("mqtt", "tcp", 1883);
     MDNS.addServiceTxt("mqtt", "button", "alarm/button");

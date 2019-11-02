@@ -6,10 +6,10 @@
 #include "arduino_secrets.h"
 
 #define DHTTYPE DHT22
-#define ID "SENSOR-NODE-2"
+#define ID "sensor-node-2"
+#define PIRPIN D6
+#define DOORPIN D5
 
-int pirPin = D6;
-int doorPin = D5;
 const char* mqttServer = "192.168.0.134";
 const int mqttPort = 1883;
 
@@ -45,7 +45,7 @@ void mqttReconnect(){
 
 
 ICACHE_RAM_ATTR void motion_detected_fx(){
-    motion_detected = digitalRead(pirPin);
+    motion_detected = digitalRead(PIRPIN);
     const int capacity_motion = JSON_OBJECT_SIZE(3);
     StaticJsonDocument<capacity_motion>doc_motion;
     doc_motion["node-id"] = ID;
@@ -58,7 +58,7 @@ ICACHE_RAM_ATTR void motion_detected_fx(){
 }
 
 ICACHE_RAM_ATTR void door_fx(){
-    door_open = digitalRead(doorPin);
+    door_open = digitalRead(DOORPIN);
     const int capacity_door = JSON_OBJECT_SIZE(3);
     StaticJsonDocument<capacity_door>doc_door;
     doc_door["node-id"] = ID;
@@ -76,11 +76,11 @@ void setup() {
     Serial.begin(115200);
     // initialize digital pin LED_BUILTIN as an output.
     pinMode(LED_BUILTIN, OUTPUT);
-    pinMode(pirPin, INPUT);
-    pinMode(doorPin, INPUT_PULLUP);      
+    pinMode(PIRPIN, INPUT);
+    pinMode(DOORPIN, INPUT_PULLUP);      
 
-    attachInterrupt(digitalPinToInterrupt(pirPin), motion_detected_fx, CHANGE);
-    attachInterrupt(digitalPinToInterrupt(doorPin), door_fx, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(PIRPIN), motion_detected_fx, CHANGE);
+    attachInterrupt(digitalPinToInterrupt(DOORPIN), door_fx, CHANGE);
 
     WiFi.begin(WLAN_SSID, WLAN_PASS);
 
@@ -98,15 +98,18 @@ void setup() {
     if (!MDNS.begin("sensor-node-2")) {             // Start the mDNS responder for esp8266.local
         Serial.println("Error setting up MDNS responder!");
     }
+
+    MDNS.addService("mqtt", "tcp", 1883);
+    MDNS.addServiceTxt("mqtt", "motion", "motion-readings");
+    MDNS.addServiceTxt("mqtt", "door", "door_readings");
+
     Serial.println("mDNS responder started");
     
 }
 
-int last_max_distance = 0;
-float duration, distance;
-
 // the loop function runs over and over again forever
 void loop() {
-
     mqttReconnect();
+    mqtt_client.loop();
+    MDNS.update();
 }

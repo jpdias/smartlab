@@ -6,19 +6,20 @@
 #include "TroykaMQ.h"
 #include "PubSubClient.h"
 #include "arduino_secrets.h"
+#include <TaskScheduler.h>
 
-int analog_read = A0;
-int temp_hum_sensor_dht22 = D4;
-int noise_sensor = D5;
+#define analog_read A0
+#define temp_hum_sensor_dht22 D4
+#define noise_sensor D5
 
-int s0 = D1; //s0
-int s1 = D2; //s1
-int s2 = D3; //s2
+#define s0 D1 //s0
+#define s1 D2 //s1
+#define s2 D3 //s2
 
 int count = 0;   //which y pin we are selecting
 
 #define DHTTYPE DHT22
-#define ID "SENSOR-NODE-1"
+#define ID "sensor-node-1"
 
 const char* mqttServer = "192.168.0.134";
 const int mqttPort = 1883;
@@ -47,89 +48,18 @@ ICACHE_RAM_ATTR void noise_detected_fx(){
     noise_detected = HIGH;
 }
 
-void mqttReconnect(){
-     while (!mqtt_client.connected()) {
-        Serial.println("Connecting to MQTT...");
-        if (mqtt_client.connect(ID)) {
-            Serial.println("connected");
-        } else {
-            Serial.print("Error: failed with state ");
-            Serial.println(mqtt_client.state());
-            delay(2000);
-        }
-    }
-}
+void readSensorsCallback(){
 
-// the setup function runs once when you press reset or power the board
-void setup() {
-    Serial.begin(115200);
-    // initialize digital pin LED_BUILTIN as an output.
-    pinMode(LED_BUILTIN, OUTPUT);
-    pinMode(noise_sensor, INPUT_PULLUP);
-
-    attachInterrupt(digitalPinToInterrupt(noise_sensor), noise_detected_fx, RISING);
-
-    dht.begin();
-
-    pinMode(s0, OUTPUT);
-    pinMode(s1, OUTPUT);
-    pinMode(s2, OUTPUT);
-
-    //MQ135 calibrate
-    digitalWrite(s0, LOW);//000
-    digitalWrite(s1, LOW);
-    digitalWrite(s2, LOW);
-    mq135.calibrate();
-    Serial.print("Ro = ");
-    Serial.println(mq135.getRo());
-
-    //MQ9 Sensor 
-    digitalWrite(s0, LOW);
-    digitalWrite(s1, HIGH); //010
-    digitalWrite(s2, LOW);            
-    mq9.calibrate();
-    Serial.print("Ro = ");
-    Serial.println(mq9.getRo());
-
-    WiFi.begin(WLAN_SSID, WLAN_PASS);
-
-    Serial.print("Connecting");
-    while (WiFi.status() != WL_CONNECTED)
-    {
-        delay(500);
-        Serial.print(".");
-    }
-    Serial.println();
-
-    Serial.print("Connected, IP address: ");
-    Serial.println(WiFi.localIP());
-
-    if (!MDNS.begin("sensor-node-1")) {             // Start the mDNS responder for esp8266.local
-        Serial.println("Error setting up MDNS responder!");
-    }
-    Serial.println("mDNS responder started");
-
-    mqttReconnect();
-
-    digitalWrite(LED_BUILTIN, LOW);
-}
-
-
-
-// the loop function runs over and over again forever
-void loop() {
-    mqttReconnect();
-   
     digitalWrite(LED_BUILTIN, HIGH);
 
     //Gas Sensor
     digitalWrite(s0, LOW);//000
     digitalWrite(s1, LOW);
     digitalWrite(s2, LOW);
-    if (!mq135.isCalibrated()) {
-        mq135.calibrate();
-        delay(100);
-    }
+
+    mq135.calibrate();
+    delay(100);
+    
     float readRatio = mq135.readRatio();
     float co2val = mq135.readCO2();
     const int capacity_gas = JSON_OBJECT_SIZE(4);
@@ -172,10 +102,8 @@ void loop() {
     digitalWrite(s1, HIGH); //010
     digitalWrite(s2, LOW);
     
-    if (!mq9.isCalibrated()) {
-        mq9.calibrate();
-        delay(100);
-    }
+    mq9.calibrate();
+    delay(100);
 
     float readRatio_1 = mq9.readRatio();
     float co = mq9.readCarbonMonoxide();
@@ -239,6 +167,98 @@ void loop() {
     mqtt_client.publish("temp-hum-readings", output_dht);
 
     digitalWrite(LED_BUILTIN, LOW);
+}
 
-    delay(60000);
+Task readSensorsTask(60000, TASK_FOREVER, &readSensorsCallback);
+Scheduler runner;
+
+
+void mqttReconnect(){
+     while (!mqtt_client.connected()) {
+        Serial.println("Connecting to MQTT...");
+        if (mqtt_client.connect(ID)) {
+            Serial.println("connected");
+        } else {
+            Serial.print("Error: failed with state ");
+            Serial.println(mqtt_client.state());
+            delay(2000);
+        }
+    }
+}
+
+// the setup function runs once when you press reset or power the board
+void setup() {
+    Serial.begin(115200);
+    // initialize digital pin LED_BUILTIN as an output.
+    pinMode(LED_BUILTIN, OUTPUT);
+    pinMode(noise_sensor, INPUT_PULLUP);
+
+    attachInterrupt(digitalPinToInterrupt(noise_sensor), noise_detected_fx, RISING);
+
+    dht.begin();
+
+    pinMode(s0, OUTPUT);
+    pinMode(s1, OUTPUT);
+    pinMode(s2, OUTPUT);
+
+    //MQ135 calibrate
+    digitalWrite(s0, LOW);//000
+    digitalWrite(s1, LOW);
+    digitalWrite(s2, LOW);
+    mq135.calibrate();
+    Serial.print("Ro = ");
+    Serial.println(mq135.getRo());
+
+    //MQ9 Sensor 
+    digitalWrite(s0, LOW);
+    digitalWrite(s1, HIGH); //010
+    digitalWrite(s2, LOW);            
+    mq9.calibrate();
+    Serial.print("Ro = ");
+    Serial.println(mq9.getRo());
+
+    WiFi.begin(WLAN_SSID, WLAN_PASS);
+
+    Serial.print("Connecting");
+    while (WiFi.status() != WL_CONNECTED)
+    {
+        delay(500);
+        Serial.print(".");
+    }
+    Serial.println();
+
+    Serial.print("Connected, IP address: ");
+    Serial.println(WiFi.localIP());
+
+    if (!MDNS.begin("sensor-node-1")) {             // Start the mDNS responder for esp8266.local
+        Serial.println("Error setting up MDNS responder!");
+    }
+    MDNS.addService("mqtt", "tcp", 1883);
+    MDNS.addServiceTxt("mqtt", "co2", "gas-mq135-readings");
+    MDNS.addServiceTxt("mqtt", "lux", "lux-readings");
+    MDNS.addServiceTxt("mqtt", "co-ch4-lpg", "gas-mq9-readings");
+    MDNS.addServiceTxt("mqtt", "temp-hum", "temp-hum-readings");
+    MDNS.addServiceTxt("mqtt", "noise-detected", "noise-readings");
+    Serial.println("mDNS responder started");
+    
+    mqttReconnect();
+
+    runner.init();
+    Serial.println("Initialized scheduler");
+    
+    runner.addTask(readSensorsTask);
+    readSensorsTask.enable();
+    Serial.println("added readSensorsTask");
+
+    digitalWrite(LED_BUILTIN, LOW);
+}
+
+
+
+// the loop function runs over and over again forever
+void loop() {
+    mqttReconnect();
+    MDNS.update();
+    mqtt_client.loop();
+    runner.execute();
 }
