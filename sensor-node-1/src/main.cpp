@@ -1,5 +1,6 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
+#include <ESP8266mDNS.h>  
 #include "ArduinoJson.h"
 #include "DHT.h"
 #include "TroykaMQ.h"
@@ -102,6 +103,11 @@ void setup() {
 
     Serial.print("Connected, IP address: ");
     Serial.println(WiFi.localIP());
+
+    if (!MDNS.begin("sensor-node-1")) {             // Start the mDNS responder for esp8266.local
+        Serial.println("Error setting up MDNS responder!");
+    }
+    Serial.println("mDNS responder started");
 
     mqttReconnect();
 

@@ -1,19 +1,15 @@
 #include <Arduino.h>
 #include <ESP8266WiFi.h>
+#include <ESP8266mDNS.h>
 #include "ArduinoJson.h"
 #include "PubSubClient.h"
 #include "arduino_secrets.h"
 
-
-int pirPin = D6;
-int trigPin = D3;
-int echoPin = D4;
-int doorPin = D5;
-
-int count = 0;   //which y pin we are selecting
-
 #define DHTTYPE DHT22
 #define ID "SENSOR-NODE-2"
+
+int pirPin = D6;
+int doorPin = D5;
 const char* mqttServer = "192.168.0.134";
 const int mqttPort = 1883;
 
@@ -80,8 +76,6 @@ void setup() {
     Serial.begin(115200);
     // initialize digital pin LED_BUILTIN as an output.
     pinMode(LED_BUILTIN, OUTPUT);
-    pinMode(trigPin, OUTPUT); // Sets the trigPin as an Output
-    pinMode(echoPin, INPUT); // Sets the echoPin as an Input
     pinMode(pirPin, INPUT);
     pinMode(doorPin, INPUT_PULLUP);      
 
@@ -100,7 +94,11 @@ void setup() {
 
     Serial.print("Connected, IP address: ");
     Serial.println(WiFi.localIP());
-
+    
+    if (!MDNS.begin("sensor-node-2")) {             // Start the mDNS responder for esp8266.local
+        Serial.println("Error setting up MDNS responder!");
+    }
+    Serial.println("mDNS responder started");
     
 }
 
@@ -111,35 +109,4 @@ float duration, distance;
 void loop() {
 
     mqttReconnect();
-
-    digitalWrite(trigPin, LOW);
-    delayMicroseconds(2);
-    digitalWrite(trigPin, HIGH);
-    delayMicroseconds(10);
-    digitalWrite(trigPin, LOW);
-    duration = pulseIn(echoPin, HIGH);
-    distance = (duration*.0343)/2;
-    Serial.print("Distance: ");
-    Serial.println(distance);
-    
-    if((int) distance > 3000 || (int) distance < 1) return;
-
-    if(abs((int) distance - (int) last_max_distance) > 20){ //changes above 20 cm
-        last_max_distance = distance;
-        digitalWrite(LED_BUILTIN, HIGH);
-        const int capacity_entry = JSON_OBJECT_SIZE(4);
-        StaticJsonDocument<capacity_entry>doc_entry;
-        doc_entry["node-id"] = ID;
-        doc_entry["sensor"] = "sonar-distance";
-        doc_entry["entry-bool"] = HIGH;
-        doc_entry["sonar-distance"] = distance;
-        char output_entry[128];
-        serializeJson(doc_entry, output_entry);
-        Serial.println(output_entry);
-        mqttReconnect();
-        mqtt_client.publish("sonar-readings", output_entry);
-    }
-
-    
-    delay(300);
 }
