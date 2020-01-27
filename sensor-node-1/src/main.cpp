@@ -5,8 +5,9 @@
 #include "DHT.h"
 #include "TroykaMQ.h"
 #include "PubSubClient.h"
-#include "arduino_secrets.h"
 #include <TaskScheduler.h>
+
+#include "config.h"
 
 #define analog_read A0
 #define temp_hum_sensor_dht22 D4
@@ -19,10 +20,9 @@
 int count = 0;   //which y pin we are selecting
 
 #define DHTTYPE DHT22
-#define ID "sensor-node-1"
 
-const char* mqttServer = "192.168.0.134";
-const int mqttPort = 1883;
+const char* mqttServer = SERVER_IP;
+const int mqttPort = MQTT_PORT;
 
 WiFiClient espClient;
 

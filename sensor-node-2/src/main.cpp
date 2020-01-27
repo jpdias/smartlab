@@ -3,15 +3,15 @@
 #include <ESP8266mDNS.h>
 #include "ArduinoJson.h"
 #include "PubSubClient.h"
-#include "arduino_secrets.h"
+
+#include "config.h"
 
 #define DHTTYPE DHT22
-#define ID "sensor-node-2"
 #define PIRPIN D6
 #define DOORPIN D5
 
-const char* mqttServer = "192.168.0.134";
-const int mqttPort = 1883;
+const char* mqttServer = SERVER_IP;
+const int mqttPort = MQTT_PORT;
 
 WiFiClient espClient;
 

@@ -11,8 +11,9 @@
 
 #include <ArduinoJson.h>
 #include "PubSubClient.h"
-#include "arduino_secrets.h"
+
 #include "utils.h"
+#include "config.h"
 
 
 #define PIN_STATE_HIGH HIGH
@@ -35,9 +36,9 @@ Adafruit_SSD1306 display(-1); // -1 = no reset pin
 
 DHT dht(DHTPIN, DHTTYPE);
 
-#define ID "SENSOR-NODE-3-MOZIoT"
-const char* mqttServer = "192.168.0.134";
-const int mqttPort = 1883;
+
+const char* mqttServer = SERVER_IP;
+const int mqttPort = MQTT_PORT;
 
 String lastText = "moz://a iot";
 
@@ -167,8 +168,8 @@ void readDHT11data()
 
   
   const int capacity_dht=JSON_OBJECT_SIZE(6);
-  StaticJsonBuffer<capacity_dht>doc_mem_dht;
-  JsonObject& doc_dht = doc_mem_dht.createObject();
+  StaticJsonDocument<capacity_dht>doc_mem_dht;
+  JsonObject doc_dht = doc_mem_dht.to<JsonObject>();
   doc_dht["node-id"] = ID;
   doc_dht["sensor"] = "dht11";
   doc_dht["hum-percent"] = h;
@@ -176,7 +177,7 @@ void readDHT11data()
   doc_dht["heatindex-C"] = hi;
   doc_dht["dewpoint"] = dp;
   char output_dht[256];
-  doc_dht.printTo(output_dht);
+  serializeJson(doc_dht, output_dht);
   Serial.println(output_dht);
   mqtt_client.publish("temp-hum-readings", output_dht);
 }
@@ -187,13 +188,13 @@ ICACHE_RAM_ATTR void motionDetectedInterrupt()
   state = !state;
   
   const int capacity_motion = JSON_OBJECT_SIZE(3);
-  StaticJsonBuffer<capacity_motion>doc_mem_motion;
-  JsonObject& doc_motion = doc_mem_motion.createObject();
+  StaticJsonDocument<capacity_motion>doc_mem_motion;
+  JsonObject doc_motion = doc_mem_motion.to<JsonObject>();
   doc_motion["node-id"] = ID;
   doc_motion["sensor"] = "pir-motion";
   doc_motion["motion-bool"] = state;
   char output_motion[128];
-  doc_motion.printTo(output_motion);
+  serializeJson(doc_motion, output_motion);
   Serial.println(output_motion);
   mqtt_client.publish("motion-readings", output_motion);
 }

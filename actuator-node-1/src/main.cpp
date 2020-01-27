@@ -3,18 +3,18 @@
 #include <ESP8266mDNS.h>  
 #include "ArduinoJson.h"
 #include "PubSubClient.h"
-#include "arduino_secrets.h"
+
+#include "config.h"
 
 
-#define ID "actuator-node-1"
 #define BUZZER D1
 #define LED_RED D2
 #define LED_GREEN D3
-#define LED_BLUE D4
+#define LED_BLUE D6
 #define BUTTON D5
 
-const char* mqttServer = "192.168.0.134";
-const int mqttPort = 1883;
+const char* mqttServer = SERVER_IP;
+const int mqttPort = MQTT_PORT;
 
 WiFiClient espClient;
 void callbackFx(char* topic, byte* payload, unsigned int length);
@@ -171,7 +171,6 @@ void setup() {
     pinMode(LED_RED, OUTPUT);
     pinMode(BUTTON, INPUT_PULLUP);
 
-    setled(1);
     
     attachInterrupt(digitalPinToInterrupt(BUTTON), buttonPressed, FALLING);
 
@@ -180,8 +179,10 @@ void setup() {
     Serial.print("Connecting");
     while (WiFi.status() != WL_CONNECTED)
     {
+        digitalWrite(LED_BUILTIN, LOW);
         delay(500);
         Serial.print(".");
+        digitalWrite(LED_BUILTIN, HIGH);
     }
     Serial.println();
 
@@ -199,8 +200,7 @@ void setup() {
     MDNS.addServiceTxt("mqtt", "buzzer", "alarm/buzzer|/on|/off, {'type': 0|1,'duration': int}");
     mqttReconnect();
 
-    digitalWrite(LED_BUILTIN, LOW);
-    setled(0);
+    digitalWrite(LED_BUILTIN, HIGH);
 }
 
 
