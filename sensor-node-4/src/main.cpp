@@ -8,27 +8,31 @@
 #include <TaskScheduler.h>
 #include <SPI.h>
 #include <RH_NRF24.h>
+#include <NTPClient.h>
+#include <WiFiUdp.h>
 
 #include "config.h"
+
+#define DHTPIN D1
+#define DHTTYPE DHT22
+
 
 const char* mqttServer = SERVER_IP;
 const int mqttPort = MQTT_PORT;
 
 WiFiClient espClient;
-
 ESP8266WebServer server(80);   // Create a webserver object that listens for HTTP request on port 80
-
 void handleRoot();
 void handleDht();              // function prototypes for HTTP handlers
 void handleNotFound();
 
 RH_NRF24 nrf24(2, 4); 
 
-#define DHTPIN D1
-#define DHTTYPE DHT22
-
 DHT dht(DHTPIN, DHTTYPE);
 PubSubClient mqtt_client(mqttServer, mqttPort, espClient);
+
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP);
 
 char output_dht[128];
 
@@ -43,7 +47,6 @@ void mqttReconnect(){
             delay(2000);
         }
     }
-    yield();
 }
 
 void readDHT(){
@@ -60,22 +63,25 @@ void readDHT(){
     }
 
     float hic = dht.computeHeatIndex(t, h, false);
-    const int capacity_dht=JSON_OBJECT_SIZE(5);
+    const int capacity_dht=JSON_OBJECT_SIZE(6);
     StaticJsonDocument<capacity_dht>doc_dht;
     doc_dht["node-id"] = ID;
     doc_dht["sensor"] = "dht22";
     doc_dht["hum-percent"] = h;
     doc_dht["temp-C"] = t;
     doc_dht["heatindex-C"] = hic;
+    doc_dht["timestamp"] = timeClient.getEpochTime();
     serializeJson(doc_dht, output_dht);
     Serial.println(output_dht);
     mqtt_client.publish("temp-hum-readings", output_dht);
 
     // Now wait for a reply
-    String msg = String(String(ID)+",");
-    msg += String(t);
+    String msg = String("sn4,");
+    msg += doc_dht["temp-C"].as<String>();
     msg += ",";
-    msg += String(h);
+    msg += doc_dht["hum-percent"].as<String>();
+    msg += ",";
+    msg += doc_dht["timestamp"].as<String>();
     msg += '\0';
     
     Serial.println(msg.c_str());
@@ -142,16 +148,24 @@ void setup() {
 
     server.begin();                           // Actually start the server
     Serial.println("HTTP server started");
+
+    timeClient.begin();
+    delay(500);
 }
 
 void loop() {
     // Wait a few seconds between measurements.
-    mqttReconnect();
-    MDNS.update();
-    mqtt_client.loop();
-    server.handleClient();
+    timeClient.update();
+    delay(100);
     runner.execute();
-    yield();
+    delay(100);
+    mqttReconnect();
+    delay(100);
+    MDNS.update();
+    delay(100);
+    mqtt_client.loop();
+    delay(100);
+    server.handleClient();
 }
 
 void handleRoot() {

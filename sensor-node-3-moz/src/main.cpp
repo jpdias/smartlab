@@ -8,14 +8,15 @@
 #include <Wire.h>
 #include <Adafruit_GFX.h>
 #include <Adafruit_SSD1306.h>
-
 #include <ArduinoJson.h>
 #include "PubSubClient.h"
+#include <NTPClient.h>
+#include <WiFiUdp.h>
 
 #include "utils.h"
 #include "config.h"
 
-
+#define LARGE_JSON_BUFFERS 1
 #define PIN_STATE_HIGH HIGH
 #define PIN_STATE_LOW LOW
 
@@ -36,6 +37,8 @@ Adafruit_SSD1306 display(-1); // -1 = no reset pin
 
 DHT dht(DHTPIN, DHTTYPE);
 
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP);
 
 const char* mqttServer = SERVER_IP;
 const int mqttPort = MQTT_PORT;
@@ -91,10 +94,12 @@ ThingProperty indoorTempF("temperatureF", "", NUMBER, nullptr);
 ThingProperty indoorHum("humidity", "", NUMBER, nullptr);
 ThingProperty indoorHeatIndex("heatIndex", "", NUMBER, nullptr);
 ThingProperty indoorDewPoint("dewPoint", "", NUMBER, nullptr);
+ThingProperty indoorTimestamp("timestamp", "", NUMBER, nullptr);
 
 const char *PIRTypes[] = {nullptr};
 ThingDevice motion("motion", "PIR Motion sensor", PIRTypes);
 ThingProperty motionDetected("motion", "", BOOLEAN, nullptr);
+ThingProperty motionTimestamp("timestamp", "", NUMBER, nullptr);
 
 const char *textDisplayTypes[] = {"TextDisplay", nullptr};
 ThingDevice textDisplay("textDisplay", "Text display", textDisplayTypes);
@@ -130,6 +135,8 @@ void readMotionData()
   ThingPropertyValue value;
   value.boolean = state;
   motionDetected.setValue(value);
+  value.number = timeClient.getEpochTime();
+  motionTimestamp.setValue(value);
 }
 
 void readDHT11data()
@@ -165,9 +172,11 @@ void readDHT11data()
   indoorHeatIndex.setValue(value);
   value.number = dp;
   indoorDewPoint.setValue(value);
+  value.number = timeClient.getEpochTime();
+  indoorTimestamp.setValue(value);
 
   
-  const int capacity_dht=JSON_OBJECT_SIZE(6);
+  const int capacity_dht=JSON_OBJECT_SIZE(7);
   StaticJsonDocument<capacity_dht>doc_mem_dht;
   JsonObject doc_dht = doc_mem_dht.to<JsonObject>();
   doc_dht["node-id"] = ID;
@@ -176,6 +185,7 @@ void readDHT11data()
   doc_dht["temp-C"] = t;
   doc_dht["heatindex-C"] = hi;
   doc_dht["dewpoint"] = dp;
+  doc_dht["timestamp"] = timeClient.getEpochTime();
   char output_dht[256];
   serializeJson(doc_dht, output_dht);
   Serial.println(output_dht);
@@ -187,12 +197,13 @@ ICACHE_RAM_ATTR void motionDetectedInterrupt()
   Serial.println("Motion Detected!");
   state = !state;
   
-  const int capacity_motion = JSON_OBJECT_SIZE(3);
+  const int capacity_motion = JSON_OBJECT_SIZE(4);
   StaticJsonDocument<capacity_motion>doc_mem_motion;
   JsonObject doc_motion = doc_mem_motion.to<JsonObject>();
   doc_motion["node-id"] = ID;
   doc_motion["sensor"] = "pir-motion";
   doc_motion["motion-bool"] = state;
+  doc_motion["timestamp"] = timeClient.getEpochTime();
   char output_motion[128];
   serializeJson(doc_motion, output_motion);
   Serial.println(output_motion);
@@ -241,6 +252,7 @@ void setup()
   Serial.println(ssid);
   Serial.print("IP address: ");
   Serial.println(WiFi.localIP());
+  lastText = WiFi.localIP().toString();
 
   mqttReconnect();
   mqtt_client.setCallback(callback);
@@ -263,9 +275,11 @@ void setup()
   indoor.addProperty(&indoorHum);
   indoor.addProperty(&indoorHeatIndex);
   indoor.addProperty(&indoorDewPoint);
+  indoor.addProperty(&indoorTimestamp);
   adapter->addDevice(&indoor);
 
   motion.addProperty(&motionDetected);
+  motion.addProperty(&motionTimestamp);
   adapter->addDevice(&motion);
 
   adapter->begin();
@@ -276,14 +290,22 @@ void setup()
 
   t1.enable();
   Serial.println("Enabled task t1");
+
+  delay(500);
+
+  timeClient.begin();
 }
 
 void loop()
 {
+  timeClient.update();
   mqttReconnect();
   mqtt_client.loop();
+  delay(100);
   runner.execute();
   readMotionData();
+  delay(100);
   displayString(lastText);
   adapter->update();
+  delay(100);
 }
