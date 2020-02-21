@@ -6,6 +6,8 @@
 #include "TroykaMQ.h"
 #include "PubSubClient.h"
 #include <TaskScheduler.h>
+#include <NTPClient.h>
+#include <WiFiUdp.h>
 
 #include "config.h"
 
@@ -25,6 +27,9 @@ const char* mqttServer = SERVER_IP;
 const int mqttPort = MQTT_PORT;
 
 WiFiClient espClient;
+
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP);
 
 void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived [");
@@ -62,12 +67,13 @@ void readSensorsCallback(){
     
     float readRatio = mq135.readRatio();
     float co2val = mq135.readCO2();
-    const int capacity_gas = JSON_OBJECT_SIZE(4);
+    const int capacity_gas = JSON_OBJECT_SIZE(5);
     StaticJsonDocument<capacity_gas>doc_gas;
     doc_gas["node-id"] = ID;
     doc_gas["sensor"] = "MQ135";
     doc_gas["read-ratio"] = readRatio;
     doc_gas["co2-ppm"]= co2val;
+    doc_gas["timestamp"] = timeClient.getEpochTime();
     char output_gas[128];
     serializeJson(doc_gas, output_gas);
     Serial.println(output_gas);
@@ -84,12 +90,13 @@ void readSensorsCallback(){
     double Vout=LDR_value*0.0048828125;
     int lux=500/(10*((5-Vout)/Vout));//use this equation if the LDR is in the upper part of the divider
     //int lux=(2500/Vout-500)/10;
-    const int capacity_ldr=JSON_OBJECT_SIZE(4);
+    const int capacity_ldr=JSON_OBJECT_SIZE(5);
     StaticJsonDocument<capacity_ldr>doc_ldr;
     doc_ldr["node-id"] = ID;
     doc_ldr["sensor"] = "LDR";
     doc_ldr["analog-read"] = LDR_value;
     doc_ldr["lux"]= lux;
+    doc_ldr["timestamp"] = timeClient.getEpochTime();
     char output_ldr[128];
     serializeJson(doc_ldr, output_ldr);
     Serial.println(output_ldr);
@@ -110,7 +117,7 @@ void readSensorsCallback(){
     float ch4 = mq9.readMethane();
     float lpg = mq9.readLPG();
 
-    const int capacity_gas_1 = JSON_OBJECT_SIZE(6);
+    const int capacity_gas_1 = JSON_OBJECT_SIZE(7);
     StaticJsonDocument<capacity_gas_1>doc_gas_1;
     doc_gas_1["node-id"] = ID;
     doc_gas_1["sensor"] = "MQ9";
@@ -118,6 +125,7 @@ void readSensorsCallback(){
     doc_gas_1["co-ppm"]= co;
     doc_gas_1["ch4-ppm"]= ch4;
     doc_gas_1["lpg-ppm"]= lpg;
+    doc_gas_1["timestamp"] = timeClient.getEpochTime();
     char output_gas_1[128];
     serializeJson(doc_gas_1, output_gas_1);
     Serial.println(output_gas_1);
@@ -128,11 +136,12 @@ void readSensorsCallback(){
 
     //Sound Sensor           
 
-    const int capacity_noise = JSON_OBJECT_SIZE(3);
+    const int capacity_noise = JSON_OBJECT_SIZE(4);
     StaticJsonDocument<capacity_noise>doc_noise;
     doc_noise["node-id"] = ID;
     doc_noise["sensor"] = "noise_sensor";
     doc_noise["noise-bool"] = noise_detected;
+    doc_noise["timestamp"] = timeClient.getEpochTime();
     noise_detected = LOW;
     char output_noise[128];
     serializeJson(doc_noise, output_noise);
@@ -154,13 +163,14 @@ void readSensorsCallback(){
 
     // Compute heat index in Celsius (isFahreheit = false)
     float hic = dht.computeHeatIndex(t, h, false);
-    const int capacity_dht=JSON_OBJECT_SIZE(5);
+    const int capacity_dht=JSON_OBJECT_SIZE(6);
     StaticJsonDocument<capacity_dht>doc_dht;
     doc_dht["node-id"] = ID;
     doc_dht["sensor"] = "dht22";
     doc_dht["hum-percent"] = h;
     doc_dht["temp-C"] = t;
     doc_dht["heatindex-C"] = hic;
+    doc_dht["timestamp"] = timeClient.getEpochTime();
     char output_dht[128];
     serializeJson(doc_dht, output_dht);
     Serial.println(output_dht);
@@ -251,14 +261,22 @@ void setup() {
     Serial.println("added readSensorsTask");
 
     digitalWrite(LED_BUILTIN, LOW);
+
+    timeClient.begin();
+    delay(500);
 }
 
 
 
 // the loop function runs over and over again forever
 void loop() {
+    timeClient.update();
+    delay(100);
     mqttReconnect();
+    delay(100);
     MDNS.update();
+    delay(100);
     mqtt_client.loop();
+    delay(100);
     runner.execute();
 }

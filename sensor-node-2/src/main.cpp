@@ -3,6 +3,8 @@
 #include <ESP8266mDNS.h>
 #include "ArduinoJson.h"
 #include "PubSubClient.h"
+#include <NTPClient.h>
+#include <WiFiUdp.h>
 
 #include "config.h"
 
@@ -14,6 +16,9 @@ const char* mqttServer = SERVER_IP;
 const int mqttPort = MQTT_PORT;
 
 WiFiClient espClient;
+
+WiFiUDP ntpUDP;
+NTPClient timeClient(ntpUDP);
 
 void callback(char* topic, byte* payload, unsigned int length) {
   Serial.print("Message arrived [");
@@ -46,11 +51,12 @@ void mqttReconnect(){
 
 ICACHE_RAM_ATTR void motion_detected_fx(){
     motion_detected = digitalRead(PIRPIN);
-    const int capacity_motion = JSON_OBJECT_SIZE(3);
+    const int capacity_motion = JSON_OBJECT_SIZE(4);
     StaticJsonDocument<capacity_motion>doc_motion;
     doc_motion["node-id"] = ID;
     doc_motion["sensor"] = "pir-motion";
     doc_motion["motion-bool"] = motion_detected;
+    doc_motion["timestamp"] = timeClient.getEpochTime();
     char output_motion[128];
     serializeJson(doc_motion, output_motion);
     Serial.println(output_motion);
@@ -59,11 +65,12 @@ ICACHE_RAM_ATTR void motion_detected_fx(){
 
 ICACHE_RAM_ATTR void door_fx(){
     door_open = digitalRead(DOORPIN);
-    const int capacity_door = JSON_OBJECT_SIZE(3);
+    const int capacity_door = JSON_OBJECT_SIZE(4);
     StaticJsonDocument<capacity_door>doc_door;
     doc_door["node-id"] = ID;
     doc_door["sensor"] = "door-status";
     doc_door["door-bool"] = door_open;
+    doc_door["timestamp"] = timeClient.getEpochTime();
     char output_door[128];
     serializeJson(doc_door, output_door);
     Serial.println(output_door);
@@ -104,12 +111,20 @@ void setup() {
     MDNS.addServiceTxt("mqtt", "door", "door_readings");
 
     Serial.println("mDNS responder started");
+
+    timeClient.begin();
+    delay(500);
     
 }
 
 // the loop function runs over and over again forever
 void loop() {
+    timeClient.update();
+    delay(100);
     mqttReconnect();
+    delay(100);
     mqtt_client.loop();
+    delay(100);
     MDNS.update();
+    delay(100);
 }
