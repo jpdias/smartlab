@@ -174,7 +174,9 @@ void readSensorsCallback(){
     char output_dht[128];
     serializeJson(doc_dht, output_dht);
     Serial.println(output_dht);
-    mqtt_client.publish("temp-hum-readings", output_dht);
+    if(!mqtt_client.publish("temp-hum-readings", output_dht)){
+        Serial.println("Error mqtt publish");
+    }
 
     digitalWrite(LED_BUILTIN, LOW);
 }
@@ -263,7 +265,7 @@ void setup() {
     digitalWrite(LED_BUILTIN, LOW);
 
     timeClient.begin();
-    delay(500);
+    delay(1000);
 }
 
 
