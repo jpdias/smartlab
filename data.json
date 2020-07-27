@@ -1,0 +1,201 @@
+Opening serial port /dev/ttyUSB1
+115200:8N1:xonxoff=0:rtscts=0
+Printing absolute timing information for each line
+Use Control-C to stop...
+[20-02-26 19:19:01 0.000002] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.551995,"co2-ppm":394,"timestamp":1582744740}
+[20-02-26 19:19:01 0.100964] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":840,"lux":228,"timestamp":1582744741}
+[20-02-26 19:19:02 0.709047] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.808238,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582744741}
+[20-02-26 19:19:02 0.100954] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":1,"timestamp":1582744741}
+[20-02-26 19:19:02 0.107987] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.2,"temp-C":24.5,"heatindex-C":24.02887,"timestamp":1582744741}
+[20-02-26 19:20:01 58.858579] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.552451,"co2-ppm":397,"timestamp":1582744801}
+[20-02-26 19:20:01 0.100946] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":837,"lux":223,"timestamp":1582744801}
+[20-02-26 19:20:02 0.709038] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.783681,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582744802}
+[20-02-26 19:20:02 0.100970] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":1,"timestamp":1582744802}
+[20-02-26 19:20:02 0.108000] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.8,"temp-C":24.5,"heatindex-C":24.04454,"timestamp":1582744802}
+[20-02-26 19:21:02 59.295534] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.550601,"co2-ppm":400,"timestamp":1582744861}
+[20-02-26 19:21:02 0.100987] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":837,"lux":223,"timestamp":1582744861}
+[20-02-26 19:21:02 0.709042] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.8,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582744862}
+[20-02-26 19:21:02 0.100959] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":1,"timestamp":1582744862}
+[20-02-26 19:21:03 0.108005] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.9,"temp-C":24.5,"heatindex-C":24.04715,"timestamp":1582744862}
+[20-02-26 19:22:02 58.983558] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.553829,"co2-ppm":395,"timestamp":1582744921}
+[20-02-26 19:22:02 0.100957] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":840,"lux":228,"timestamp":1582744922}
+[20-02-26 19:22:02 0.709036] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.824679,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582744922}
+[20-02-26 19:22:02 0.100963] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":0,"timestamp":1582744922}
+[20-02-26 19:22:03 0.106986] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":40,"temp-C":24.5,"heatindex-C":24.04976,"timestamp":1582744922}
+[20-02-26 19:23:02 59.182573] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.552451,"co2-ppm":395,"timestamp":1582744982}
+[20-02-26 19:23:02 0.100963] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":836,"lux":222,"timestamp":1582744982}
+[20-02-26 19:23:03 0.708986] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.8,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582744982}
+[20-02-26 19:23:03 0.101009] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":1,"timestamp":1582744983}
+[20-02-26 19:23:03 0.107001] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":40,"temp-C":24.5,"heatindex-C":24.04976,"timestamp":1582744983}
+[20-02-26 19:24:01 58.667543] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.551993,"co2-ppm":397,"timestamp":1582745041}
+[20-02-26 19:24:02 0.100979] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":840,"lux":228,"timestamp":1582745041}
+[20-02-26 19:24:02 0.709045] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.791763,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582745042}
+[20-02-26 19:24:02 0.100961] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":0,"timestamp":1582745042}
+[20-02-26 19:24:02 0.107998] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.9,"temp-C":24.5,"heatindex-C":24.04715,"timestamp":1582745042}
+[20-02-26 19:25:02 59.102530] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.551537,"co2-ppm":397,"timestamp":1582745101}
+[20-02-26 19:25:02 0.100984] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":834,"lux":219,"timestamp":1582745101}
+[20-02-26 19:25:02 0.708036] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.800001,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582745102}
+[20-02-26 19:25:02 0.100963] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":1,"timestamp":1582745102}
+[20-02-26 19:25:03 0.107994] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.8,"temp-C":24.5,"heatindex-C":24.04454,"timestamp":1582745102}
+[20-02-26 19:26:01 58.693574] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.548284,"co2-ppm":404,"timestamp":1582745161}
+[20-02-26 19:26:01 0.100970] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":832,"lux":216,"timestamp":1582745161}
+[20-02-26 19:26:02 0.709025] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.791752,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582745162}
+[20-02-26 19:26:02 0.100952] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":0,"timestamp":1582745162}
+[20-02-26 19:26:02 0.108001] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":40.3,"temp-C":24.5,"heatindex-C":24.05759,"timestamp":1582745162}
+[20-02-26 19:27:01 59.051540] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.552451,"co2-ppm":396,"timestamp":1582745221}
+[20-02-26 19:27:01 0.100983] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":836,"lux":222,"timestamp":1582745221}
+[20-02-26 19:27:02 0.710039] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.816472,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582745222}
+[20-02-26 19:27:02 0.099955] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":1,"timestamp":1582745222}
+[20-02-26 19:27:02 0.108002] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":40,"temp-C":24.6,"heatindex-C":24.15976,"timestamp":1582745222}
+[20-02-26 19:28:01 59.107528] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.552451,"co2-ppm":396,"timestamp":1582745282}
+[20-02-26 19:28:02 0.100986] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":835,"lux":220,"timestamp":1582745282}
+[20-02-26 19:28:02 0.709046] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.791779,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582745282}
+[20-02-26 19:28:02 0.099974] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":1,"timestamp":1582745282}
+[20-02-26 19:28:02 0.107981] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.5,"temp-C":24.5,"heatindex-C":24.0367,"timestamp":1582745283}
+[20-02-26 19:29:01 58.748540] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.553373,"co2-ppm":397,"timestamp":1582745341}
+[20-02-26 19:29:01 0.100980] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":833,"lux":218,"timestamp":1582745341}
+[20-02-26 19:29:02 0.709051] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.791766,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582745342}
+[20-02-26 19:29:02 0.099955] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":1,"timestamp":1582745342}
+[20-02-26 19:29:02 0.107992] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.7,"temp-C":24.6,"heatindex-C":24.15192,"timestamp":1582745342}
+[20-02-26 19:30:01 59.125533] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.552909,"co2-ppm":398,"timestamp":1582745401}
+[20-02-26 19:30:01 0.101013] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":840,"lux":228,"timestamp":1582745401}
+[20-02-26 19:30:02 0.709014] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.791779,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582745402}
+[20-02-26 19:30:02 0.099962] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":0,"timestamp":1582745402}
+[20-02-26 19:30:02 0.107987] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.8,"temp-C":24.5,"heatindex-C":24.04454,"timestamp":1582745402}
+[20-02-26 19:31:01 59.027494] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.551992,"co2-ppm":398,"timestamp":1582745461}
+[20-02-26 19:31:02 0.100962] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":837,"lux":223,"timestamp":1582745461}
+[20-02-26 19:31:02 0.709031] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.800046,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582745462}
+[20-02-26 19:31:02 0.100958] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":0,"timestamp":1582745462}
+[20-02-26 19:31:02 0.107999] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.6,"temp-C":24.5,"heatindex-C":24.03931,"timestamp":1582745462}
+[20-02-26 19:32:02 59.079295] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.55291,"co2-ppm":396,"timestamp":1582745521}
+[20-02-26 19:32:02 0.100978] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":841,"lux":229,"timestamp":1582745521}
+[20-02-26 19:32:02 0.708032] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.808192,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582745521}
+[20-02-26 19:32:02 0.100964] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":0,"timestamp":1582745522}
+[20-02-26 19:32:03 0.108002] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.6,"temp-C":24.5,"heatindex-C":24.03931,"timestamp":1582745522}
+[20-02-26 19:33:02 59.230344] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.552451,"co2-ppm":397,"timestamp":1582745582}
+[20-02-26 19:33:02 0.100949] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":834,"lux":219,"timestamp":1582745582}
+[20-02-26 19:33:03 0.708992] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.808265,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582745582}
+[20-02-26 19:33:03 0.101000] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":0,"timestamp":1582745583}
+[20-02-26 19:33:03 0.108008] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.6,"temp-C":24.5,"heatindex-C":24.03931,"timestamp":1582745583}
+[20-02-26 19:34:01 58.457331] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.550108,"co2-ppm":403,"timestamp":1582745641}
+[20-02-26 19:34:01 0.100985] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":838,"lux":225,"timestamp":1582745641}
+[20-02-26 19:34:02 0.708044] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.8,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582745642}
+[20-02-26 19:34:02 0.100947] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":0,"timestamp":1582745642}
+[20-02-26 19:34:02 0.108013] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.6,"temp-C":24.5,"heatindex-C":24.03931,"timestamp":1582745642}
+[20-02-26 19:35:01 59.081343] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.55337,"co2-ppm":394,"timestamp":1582745701}
+[20-02-26 19:35:01 0.100991] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":835,"lux":220,"timestamp":1582745701}
+[20-02-26 19:35:02 0.709027] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.783664,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582745702}
+[20-02-26 19:35:02 0.099959] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":0,"timestamp":1582745702}
+[20-02-26 19:35:02 0.107997] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.6,"temp-C":24.5,"heatindex-C":24.03931,"timestamp":1582745702}
+[20-02-26 19:36:01 58.850376] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.551994,"co2-ppm":397,"timestamp":1582745761}
+[20-02-26 19:36:01 0.100983] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":838,"lux":225,"timestamp":1582745761}
+[20-02-26 19:36:02 0.709042] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.791834,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582745762}
+[20-02-26 19:36:02 0.099953] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":1,"timestamp":1582745762}
+[20-02-26 19:36:02 0.108001] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.7,"temp-C":24.5,"heatindex-C":24.04193,"timestamp":1582745762}
+[20-02-26 19:37:01 59.241376] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.54876,"co2-ppm":397,"timestamp":1582745821}
+[20-02-26 19:37:02 0.100990] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":832,"lux":216,"timestamp":1582745821}
+[20-02-26 19:37:02 0.708031] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.8,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582745822}
+[20-02-26 19:37:02 0.101963] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":0,"timestamp":1582745822}
+[20-02-26 19:37:02 0.107994] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.8,"temp-C":24.5,"heatindex-C":24.04454,"timestamp":1582745822}
+[20-02-26 19:38:01 58.751412] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.551992,"co2-ppm":397,"timestamp":1582745881}
+[20-02-26 19:38:01 0.101010] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":833,"lux":218,"timestamp":1582745881}
+[20-02-26 19:38:02 0.708013] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.808158,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582745882}
+[20-02-26 19:38:02 0.100949] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":0,"timestamp":1582745882}
+[20-02-26 19:38:02 0.108003] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.8,"temp-C":24.5,"heatindex-C":24.04454,"timestamp":1582745882}
+[20-02-26 19:39:02 59.294410] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.552451,"co2-ppm":397,"timestamp":1582745941}
+[20-02-26 19:39:02 0.100992] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":838,"lux":225,"timestamp":1582745941}
+[20-02-26 19:39:02 0.709036] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.791886,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582745942}
+[20-02-26 19:39:02 0.099952] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":0,"timestamp":1582745942}
+[20-02-26 19:39:03 0.108000] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.6,"temp-C":24.5,"heatindex-C":24.03931,"timestamp":1582745942}
+[20-02-26 19:40:02 58.935412] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.552451,"co2-ppm":397,"timestamp":1582746001}
+[20-02-26 19:40:02 0.100993] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":835,"lux":220,"timestamp":1582746001}
+[20-02-26 19:40:02 0.710028] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.750479,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582746002}
+[20-02-26 19:40:02 0.099954] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":0,"timestamp":1582746002}
+[20-02-26 19:40:03 0.108006] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.7,"temp-C":24.5,"heatindex-C":24.04193,"timestamp":1582746002}
+[20-02-26 19:41:01 58.828438] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.551541,"co2-ppm":396,"timestamp":1582746061}
+[20-02-26 19:41:01 0.100979] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":838,"lux":225,"timestamp":1582746061}
+[20-02-26 19:41:02 0.710044] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.857877,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582746061}
+[20-02-26 19:41:02 0.100955] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":0,"timestamp":1582746062}
+[20-02-26 19:41:02 0.107997] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.8,"temp-C":24.5,"heatindex-C":24.04454,"timestamp":1582746062}
+[20-02-26 19:42:01 59.086416] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.552451,"co2-ppm":396,"timestamp":1582746122}
+[20-02-26 19:42:02 0.101007] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":835,"lux":220,"timestamp":1582746122}
+[20-02-26 19:42:02 0.709036] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.8,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582746122}
+[20-02-26 19:42:02 0.099958] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":1,"timestamp":1582746122}
+[20-02-26 19:42:02 0.108998] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.7,"temp-C":24.5,"heatindex-C":24.04193,"timestamp":1582746123}
+[20-02-26 19:43:01 58.826444] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.552444,"co2-ppm":396,"timestamp":1582746181}
+[20-02-26 19:43:01 0.100989] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":833,"lux":218,"timestamp":1582746181}
+[20-02-26 19:43:02 0.709045] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.8,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582746182}
+[20-02-26 19:43:02 0.100951] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":1,"timestamp":1582746182}
+[20-02-26 19:43:02 0.106993] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.5,"temp-C":24.4,"heatindex-C":23.9267,"timestamp":1582746182}
+[20-02-26 19:44:01 58.863488] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.552909,"co2-ppm":396,"timestamp":1582746241}
+[20-02-26 19:44:01 0.100982] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":833,"lux":218,"timestamp":1582746241}
+[20-02-26 19:44:02 0.709018] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.808084,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582746242}
+[20-02-26 19:44:02 0.100951] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":0,"timestamp":1582746242}
+[20-02-26 19:44:02 0.108000] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.7,"temp-C":24.5,"heatindex-C":24.04193,"timestamp":1582746242}
+[20-02-26 19:45:01 59.088466] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.552905,"co2-ppm":397,"timestamp":1582746301}
+[20-02-26 19:45:01 0.100985] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":841,"lux":229,"timestamp":1582746301}
+[20-02-26 19:45:02 0.709034] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.816322,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582746302}
+[20-02-26 19:45:02 0.099952] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":1,"timestamp":1582746302}
+[20-02-26 19:45:02 0.107996] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.4,"temp-C":24.5,"heatindex-C":24.03409,"timestamp":1582746302}
+[20-02-26 19:46:01 59.137466] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.552451,"co2-ppm":395,"timestamp":1582746361}
+[20-02-26 19:46:02 0.101013] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":840,"lux":228,"timestamp":1582746361}
+[20-02-26 19:46:02 0.708010] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.799999,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582746362}
+[20-02-26 19:46:02 0.100956] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":1,"timestamp":1582746362}
+[20-02-26 19:46:02 0.108001] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.5,"temp-C":24.5,"heatindex-C":24.0367,"timestamp":1582746362}
+[20-02-26 19:47:01 58.885471] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.552451,"co2-ppm":396,"timestamp":1582746421}
+[20-02-26 19:47:01 0.101007] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":840,"lux":228,"timestamp":1582746421}
+[20-02-26 19:47:02 0.710025] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.816298,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582746422}
+[20-02-26 19:47:02 0.099960] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":1,"timestamp":1582746422}
+[20-02-26 19:47:02 0.107985] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.4,"temp-C":24.5,"heatindex-C":24.03409,"timestamp":1582746422}
+[20-02-26 19:48:01 58.860474] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.553365,"co2-ppm":394,"timestamp":1582746481}
+[20-02-26 19:48:01 0.100986] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":840,"lux":228,"timestamp":1582746481}
+[20-02-26 19:48:02 0.709042] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.808165,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582746482}
+[20-02-26 19:48:02 0.100947] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":0,"timestamp":1582746482}
+[20-02-26 19:48:02 0.107997] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.2,"temp-C":24.4,"heatindex-C":23.91887,"timestamp":1582746482}
+[20-02-26 19:49:02 59.295482] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.551992,"co2-ppm":398,"timestamp":1582746541}
+[20-02-26 19:49:02 0.100981] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":832,"lux":216,"timestamp":1582746541}
+[20-02-26 19:49:02 0.709039] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.808272,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582746542}
+[20-02-26 19:49:02 0.100478] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":1,"timestamp":1582746542}
+[20-02-26 19:49:03 0.108479] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.1,"temp-C":24.5,"heatindex-C":24.02626,"timestamp":1582746542}
+[20-02-26 19:50:01 58.835512] {"node-id":"sensor-node-1","sensor":"MQ135","read-ratio":0.551999,"co2-ppm":397,"timestamp":1582746601}
+[20-02-26 19:50:02 0.100954] {"node-id":"sensor-node-1","sensor":"LDR","analog-read":832,"lux":216,"timestamp":1582746602}
+[20-02-26 19:50:02 0.709042] {"node-id":"sensor-node-1","sensor":"MQ9","read-ratio":9.791788,"co-ppm":5,"ch4-ppm":11,"lpg-ppm":8,"timestamp":1582746602}
+[20-02-26 19:50:02 0.099950] {"node-id":"sensor-node-1","sensor":"noise_sensor","noise-bool":1,"timestamp":1582746602}
+[20-02-26 19:50:02 0.109003] {"node-id":"sensor-node-1","sensor":"dht22","hum-percent":39.2,"temp-C":24.5,"heatindex-C":24.02887,"timestamp":1582746602}
+
+
+-------
+
+{"POWER":"OFF","timestamp":1582744705463}
+{"POWER":"OFF","timestamp":1582744743169}
+{"POWER":"OFF","timestamp":1582744802865}
+{"POWER":"OFF","timestamp":1582744863117}
+{"POWER":"OFF","timestamp":1582744923233}
+{"POWER":"OFF","timestamp":1582744983464}
+{"POWER":"OFF","timestamp":1582745043056}
+{"POWER":"OFF","timestamp":1582745103166}
+{"POWER":"OFF","timestamp":1582745162877}
+{"POWER":"OFF","timestamp":1582745222945}
+{"POWER":"OFF","timestamp":1582745283131}
+{"POWER":"OFF","timestamp":1582745342922}
+{"POWER":"OFF","timestamp":1582745402965}
+{"POWER":"OFF","timestamp":1582745463020}
+{"POWER":"OFF","timestamp":1582745523135}
+{"POWER":"OFF","timestamp":1582745583532}
+{"POWER":"OFF","timestamp":1582745642846}
+{"POWER":"OFF","timestamp":1582745702934}
+{"POWER":"OFF","timestamp":1582745762910}
+{"POWER":"OFF","timestamp":1582745823198}
+{"POWER":"OFF","timestamp":1582745882811}
+{"POWER":"OFF","timestamp":1582745943194}
+{"POWER":"OFF","timestamp":1582746003182}
+{"POWER":"OFF","timestamp":1582746063013}
+{"POWER":"OFF","timestamp":1582746123094}
+{"POWER":"OFF","timestamp":1582746182994}
+{"POWER":"OFF","timestamp":1582746242846}
+{"POWER":"OFF","timestamp":1582746302917}
+{"POWER":"OFF","timestamp":1582746363043}
+{"POWER":"OFF","timestamp":1582746422948}
+{"POWER":"OFF","timestamp":1582746482913}
+{"POWER":"OFF","timestamp":1582746543157}
+{"POWER":"OFF","timestamp":1582746603054}
