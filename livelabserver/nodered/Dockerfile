@@ -12,5 +12,6 @@ RUN npm i node-red-node-ping
 RUN npm i node-red-contrib-os
 RUN npm i node-red-contrib-assert
 RUN npm i node-red-node-discovery
+RUN npm i node-red-contrib-self-healing
 
 EXPOSE 1880
